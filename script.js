@@ -2,8 +2,8 @@ const form = document.querySelector(".study-form");
 const logsList = document.getElementById("logs-list");
 
 const completionRateEl = document.getElementById("completionRate");
-const topFriction = document.getElementById("topFriction");
-const worstTime = document.getElementById("worstTime");
+const topFrictionEl = document.getElementById("topFriction");
+const worstTimeEl = document.getElementById("worstTime");
 const smartInsights = document.getElementById("smartInsights");
 
 let sessions = [];
@@ -33,7 +33,7 @@ form.addEventListener("submit",function (e){
     sessions.push(newSession);
 
     displayLogs();
-    // analyseData();
+    analyseData();
 
     form.reset();
 });
@@ -57,5 +57,55 @@ function displayLogs(){
         Frictions: ${session.frictions.length > 0 ? session.frictions.join(", ") : "None"}
         `
         logsList.appendChild(li);
-    })
+    });
+}
+
+function analyseData(){
+    let completedCount = 0;
+    let frictionCount = {};
+    let timeCount = {Morning:0,Evening:0,Night:0};
+
+    sessions.forEach(function(session){
+        if(session.sessionStatus === "completed"){
+            completedCount++;
+        }
+
+        session.frictions.forEach(function(friction){
+            if(!frictionCount[friction]){
+                frictionCount[friction] = 1;
+            }else{
+                frictionCount[friction]++;
+            }
+        });
+
+
+        if(session.sessionStatus === "not-done"){
+            timeCount[session.sessionTime]++;
+        }
+    });
+
+    let completionRate = Math.round((completedCount/sessions.length)*100);
+    completionRateEl.textContent = completionRate + "%";
+
+    let topFriction = "-";
+    let maxFriction = 0;
+
+    for(let key in frictionCount){
+        if(frictionCount[key] > maxFriction){
+            maxFriction = frictionCount[key];
+            topFriction = key;
+        }
+    }
+    topFrictionEl.textContent = topFriction;
+
+    let worstTime = "-";
+    let maxTime = 0;
+
+    for(let key in timeCount){
+        if(timeCount[key] > maxTime){
+            maxTime = timeCount[key];
+            worstTime = key;
+        }
+    }
+    worstTimeEl.textContent = worstTime;
 }
