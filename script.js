@@ -33,7 +33,29 @@ form.addEventListener("submit",function (e){
     sessions.push(newSession);
 
     displayLogs();
-    analyseData();
+    // analyseData();
 
     form.reset();
 });
+
+function displayLogs(){
+    logsList.innerHTML = "";
+
+    if(sessions.length === 0){
+        logsList.innerHTML = "<li>No logs yet</li>";
+    }
+
+    sessions.forEach(function(session){
+        let li = document.createElement("li");
+
+        li.style.borderBottom = "1px solid #eee";
+        li.style.padding = "15px"
+
+        li.innerHTML = `
+        <strong>${session.subject}</strong> | ${session.time} mins <br>
+        ${session.sessionTime} | ${session.sessionStatus} <br>
+        Frictions: ${session.frictions.length > 0 ? session.frictions.join(", ") : "None"}
+        `
+        logsList.appendChild(li);
+    })
+}
