@@ -18,7 +18,7 @@
             <div class="main-grid">
                 <div class="log-data card">
                     <h2>Log a session</h2>
-                    <form>
+                    <form class="study-form">
                         <div class="form-group">
                             <label for="subject">Subject:</label>
                             <input type="text" id="subject" required placeholder="e.g Math, history, coding">
@@ -46,9 +46,9 @@
                             <label>Frictions(What stopped you?):</label>
                             <div class="checkBox-group">
                                 <label><input type="checkbox" name="friction" value="boredome">Boredome</label>
-                                <label><input type="checkbox" name="friction" value="boredome">Boredome</label>
-                                <label><input type="checkbox" name="friction" value="boredome">Boredome</label>
-                                <label><input type="checkbox" name="friction" value="boredome">Boredome</label>
+                                <label><input type="checkbox" name="friction" value="phone">Phone</label>
+                                <label><input type="checkbox" name="friction" value="distraction">Distraction</label>
+                                <label><input type="checkbox" name="friction" value="fatigue">Fatigue</label>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
 
                     <div class="logs-section card">
                         <h2>Recent logs</h2>
-                        <ul class="logs-list">
+                        <ul id="logs-list">
                             <li>No logs yet</li>
                         </ul>
                     </div>
@@ -89,5 +89,6 @@
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
