@@ -108,4 +108,27 @@ function analyseData(){
         }
     }
     worstTimeEl.textContent = worstTime;
+
+    generateSmarInsigts(completionRate,topFriction,worstTime);
+}
+
+function generateSmarInsigts(rate,friction,worst){
+    let message = "";
+    if(rate < 50){
+        message = "Your completion rate is low. Reduce study time and focus on consistency.";
+    }else if(rate>=50 && rate<80){
+        message  = "Good progress. Try improving weak times.";
+    }else{
+        message = "Excellent discipline! Keep going.";
+    }
+
+    if(friction !== "-"){
+        message += ` Biggest obstacle: ${friction}.`
+    }
+
+    if(worst !== "-"){
+        message += `Most sessions fail during ${worst}. Adjust that time.`
+    }
+
+    smartInsights.textContent = message;
 }
